@@ -1,6 +1,7 @@
 package com.example.cryptos.network.Repository
 
 import com.example.cryptos.network.API
+import com.example.cryptos.network.API2
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -19,11 +20,11 @@ object CryptosRepository {
 
    suspend fun getALlCryptos() = withContext(Dispatchers.IO) {
        val response = try {
-           API.cryptosAPI.getAllCryptosData().execute()
+           API2.cryptosAPI.getAllCryptosData().execute()
        } catch (e: Exception) {
            null
        }
-       response?.let {
+       response?.body().let {
            return@withContext it
        }
    }

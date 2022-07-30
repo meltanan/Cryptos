@@ -16,10 +16,19 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         viewModel.viewModelScope.launch {
-            val wow = viewModel.getBitcoint()
-            Log.d("demo", wow.toString())
+            viewModel.getBitcoint()
+            val wow = viewModel.getAllCryptos()
+
+            Log.d("demo11", wow?.size.toString())
 
 
+            //   Log.d("demo", wow.toString())
         }
+
+        viewModel.bitCoin.observe(this) {
+            Log.d("demo", it.toString())
+        }
+
+
     }
 }
