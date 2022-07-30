@@ -9,16 +9,6 @@ import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import com.example.cryptos.R
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [BitCoinFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class BitCoinFragment : Fragment() {
     private val viewModel: HomeActivityViewModel by activityViewModels()
     lateinit var nameTextView: TextView
@@ -41,7 +31,11 @@ class BitCoinFragment : Fragment() {
     private fun setUpUi() {
         viewModel.bitCoin.observe(requireActivity()) {
             nameTextView.text = it.chartName
-            rateTextView.text = it.bpi.USD.rate.toString()
+            when(viewModel.favoriteCurrency) {
+                "USD" -> rateTextView.text = "${it.bpi.USD.rate} USD"
+                "GBP" -> rateTextView.text = "${it.bpi.GBP.rate} GBP"
+                "EUR" -> rateTextView.text = "${it.bpi.EUR.rate} EUR"
+            }
             timeTextView.text = it.time.updated.removePrefix("updated :")
         }
     }

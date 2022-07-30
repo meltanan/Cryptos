@@ -12,11 +12,7 @@ class HomeActivityViewModel: ViewModel() {
     var allCryptos = MutableLiveData<List<AllCryptosItem>>()
     var favoriteCurrency = ""
 
-    suspend fun getBitcoint() {
-        bitCoin.postValue(CryptosRepository.getBitcoint())
-    }
-    suspend fun getAllCryptos() {
-        allCryptos.postValue(CryptosRepository.getALlCryptos())
-    }
+    suspend fun getBitcoin() { bitCoin.postValue(CryptosRepository.getBitcoint()) }
+    suspend fun getAllCryptos() { allCryptos.postValue(CryptosRepository.getALlCryptos()) }
 
 }

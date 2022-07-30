@@ -9,14 +9,17 @@ import androidx.lifecycle.viewModelScope
 import com.example.cryptos.R
 import com.example.cryptos.replaceFragment
 import com.example.cryptos.showOptionsDialog
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class HomeActivity : AppCompatActivity() {
     private val FAVORITE_CURRENCY_KEY = "FAVORITE_CURRENCY_KEY"
+    private var minutesToUpdateBitCoin = 300000L
     private val viewModel: HomeActivityViewModel by viewModels()
     lateinit var bitCoinButton: Button
     lateinit var allCryptos: Button
-    private var favoriteCurrency = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,20 +28,21 @@ class HomeActivity : AppCompatActivity() {
         getCurrenciesData()
         if (favoriteCurrencyIsSet()) setUpUi()
         else showCurrencyDialog()
+
+        updateBitCoinAutomatically()
     }
 
     private fun showCurrencyDialog() {
         showOptionsDialog(
-            title ="Choose a currency",
+            title ="Choose a currency please",
             cancelable = false,
             items = arrayOf("USD", "GBP", "EUR"),
             selectedItemAction = { selectedItemIndex ->
                 when (selectedItemIndex) {
-                    0 -> favoriteCurrency = "USD"
-                    1 -> favoriteCurrency = "GBP"
-                    2 -> favoriteCurrency = "EUR"
+                    0 -> viewModel.favoriteCurrency = "USD"
+                    1 -> viewModel.favoriteCurrency = "GBP"
+                    2 -> viewModel.favoriteCurrency = "EUR"
                 }
-                viewModel.favoriteCurrency = favoriteCurrency
                 saveFavoriteCurrency()
                 setUpUi()
             }
@@ -46,7 +50,6 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setUpUi() {
-
         bitCoinButton = findViewById(R.id.bitcoint_button)
         allCryptos = findViewById(R.id.all_cryptos_button)
         bitCoinButton.setOnClickListener(){ replaceFragment<BitCoinFragment>() }
@@ -55,7 +58,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun getCurrenciesData() {
         viewModel.viewModelScope.launch {
-            viewModel.getBitcoint()
+            viewModel.getBitcoin()
             viewModel.getAllCryptos()
         }
     }
@@ -63,9 +66,7 @@ class HomeActivity : AppCompatActivity() {
     private fun getFavoriteCurrency() {
         val sharedPref = this.getPreferences(Context.MODE_PRIVATE) ?: return
         with (sharedPref.edit()) {
-            putString(FAVORITE_CURRENCY_KEY, favoriteCurrency)
-            favoriteCurrency = sharedPref.getString(FAVORITE_CURRENCY_KEY,"").toString()
-            viewModel.favoriteCurrency = favoriteCurrency
+            viewModel.favoriteCurrency = sharedPref.getString(FAVORITE_CURRENCY_KEY,"").toString()
             apply()
         }
     }
@@ -73,13 +74,23 @@ class HomeActivity : AppCompatActivity() {
     private fun saveFavoriteCurrency() {
         val sharedPref = this.getPreferences(Context.MODE_PRIVATE) ?: return
         with (sharedPref.edit()) {
-            putString(FAVORITE_CURRENCY_KEY, favoriteCurrency)
+            putString(FAVORITE_CURRENCY_KEY, viewModel.favoriteCurrency)
             apply()
         }
     }
 
     private fun favoriteCurrencyIsSet(): Boolean {
         getFavoriteCurrency()
-        return favoriteCurrency.isNotBlank()
+        return viewModel.favoriteCurrency.isNotBlank()
     }
+
+    private fun updateBitCoinAutomatically() {
+        CoroutineScope(IO).launch {
+            delay(minutesToUpdateBitCoin)
+            viewModel.getBitcoin()
+            updateBitCoinAutomatically()
+        }
+    }
+
+    override fun onBackPressed() {}
 }
