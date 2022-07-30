@@ -4,10 +4,10 @@ import android.content.Context
 import android.widget.Toast
 import androidx.fragment.app.*
 
-inline fun <reified T : Fragment> FragmentActivity.addFragment(addToBackStack: Boolean = false) {
+inline fun <reified T : Fragment> FragmentActivity.replaceFragment(addToBackStack: Boolean = false) {
     supportFragmentManager.commit {
         if (addToBackStack) addToBackStack(null)
-        add<T>(R.id.fragmentContainerView)
+        replace<T>(R.id.fragmentContainerView)
     }
 }
 

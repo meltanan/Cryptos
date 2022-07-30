@@ -5,13 +5,12 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import androidx.activity.viewModels
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cryptos.R
-import com.example.cryptos.addFragment
+import com.example.cryptos.replaceFragment
 import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity() {
     private val viewModel: HomeActivityViewModel by viewModels()
     lateinit var bitCointButton: Button
     lateinit var allCryptos: Button
@@ -22,15 +21,10 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.viewModelScope.launch {
             viewModel.getBitcoint()
-            val wow = viewModel.getAllCryptos()
-
-            Log.d("demo11", wow?.size.toString())
-
+            viewModel.getAllCryptos()
         }
 
-        viewModel.bitCoin.observe(this) {
-            Log.d("demo", it.toString())
-        }
+        viewModel.bitCoin.observe(this) {}
 
         setUpUi()
     }
@@ -39,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         bitCointButton = findViewById(R.id.bitcoint_button)
         allCryptos = findViewById(R.id.all_cryptos_button)
 
-        bitCointButton.setOnClickListener(){ addFragment<BitCoinFragment>() }
-        allCryptos.setOnClickListener(){ addFragment<AllCryptosFragment>() }
+        bitCointButton.setOnClickListener(){ replaceFragment<BitCoinFragment>() }
+        allCryptos.setOnClickListener(){ replaceFragment<AllCryptosFragment>() }
     }
 }
