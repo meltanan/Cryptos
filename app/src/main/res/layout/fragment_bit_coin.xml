@@ -40,7 +40,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:textSize="40sp"
+        android:textSize="30sp"
         android:textStyle="bold"
         android:textColor="#0590FF"
         android:text="Time"

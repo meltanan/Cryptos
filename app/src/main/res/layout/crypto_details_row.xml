@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#DDF7FB"
+        android:background="#A1CDD4"
         tools:context=".ui.ui.HomeActivity">
 
 
@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:text="Name"
             android:textAlignment="center"
-            android:textSize="30sp"
+            android:textSize="25sp"
             android:textColor="@color/black"
             app:layout_constraintBottom_toTopOf="@+id/rankTextView"
             app:layout_constraintEnd_toEndOf="parent"
@@ -31,7 +31,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:textColor="#099404"
             android:text="Rank"
             app:layout_constraintBottom_toTopOf="@+id/statusTextView"
@@ -44,7 +44,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textColor="#0590FF"
             android:text="Active"
             app:layout_constraintBottom_toBottomOf="@id/typeTextView"

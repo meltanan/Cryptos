@@ -3,7 +3,9 @@ package com.example.cryptos.ui
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.lifecycle.viewModelScope
 import com.example.cryptos.R
@@ -16,10 +18,11 @@ import kotlinx.coroutines.launch
 
 class HomeActivity : AppCompatActivity() {
     private val FAVORITE_CURRENCY_KEY = "FAVORITE_CURRENCY_KEY"
-    private var minutesToUpdateBitCoin = 300000L
+    lateinit var welcomeTextView: TextView
     private val viewModel: HomeActivityViewModel by viewModels()
     lateinit var bitCoinButton: Button
     lateinit var allCryptos: Button
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,8 +31,6 @@ class HomeActivity : AppCompatActivity() {
         getCurrenciesData()
         if (favoriteCurrencyIsSet()) setUpUi()
         else showCurrencyDialog()
-
-        updateBitCoinAutomatically()
     }
 
     private fun showCurrencyDialog() {
@@ -52,8 +53,16 @@ class HomeActivity : AppCompatActivity() {
     private fun setUpUi() {
         bitCoinButton = findViewById(R.id.bitcoint_button)
         allCryptos = findViewById(R.id.all_cryptos_button)
-        bitCoinButton.setOnClickListener(){ replaceFragment<BitCoinFragment>() }
-        allCryptos.setOnClickListener(){ replaceFragment<AllCryptosFragment>() }
+        welcomeTextView = findViewById(R.id.welcome_textView)
+        bitCoinButton.setOnClickListener(){
+            replaceFragment<BitCoinFragment>()
+            welcomeTextView.visibility = View.GONE
+        }
+
+        allCryptos.setOnClickListener(){
+            replaceFragment<AllCryptosFragment>()
+            welcomeTextView.visibility = View.GONE
+        }
     }
 
     private fun getCurrenciesData() {
@@ -61,6 +70,7 @@ class HomeActivity : AppCompatActivity() {
             viewModel.getBitcoin()
             viewModel.getAllCryptos()
         }
+        viewModel.updateBitCoinAutomatically()
     }
 
     private fun getFavoriteCurrency() {
@@ -82,14 +92,6 @@ class HomeActivity : AppCompatActivity() {
     private fun favoriteCurrencyIsSet(): Boolean {
         getFavoriteCurrency()
         return viewModel.favoriteCurrency.isNotBlank()
-    }
-
-    private fun updateBitCoinAutomatically() {
-        CoroutineScope(IO).launch {
-            delay(minutesToUpdateBitCoin)
-            viewModel.getBitcoin()
-            updateBitCoinAutomatically()
-        }
     }
 
     override fun onBackPressed() {}

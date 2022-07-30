@@ -3,7 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Mohamed/Desktop/WorkSpace/Cryptos/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1725" />
         <entry key="..\:/Users/Mohamed/Desktop/WorkSpace/Cryptos/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/Mohamed/Desktop/WorkSpace/Cryptos/app/src/main/res/layout/activity_splash_screen.xml" value="0.27395833333333336" />
+        <entry key="..\:/Users/Mohamed/Desktop/WorkSpace/Cryptos/app/src/main/res/layout/activity_test.xml" value="0.21197916666666666" />
+        <entry key="..\:/Users/Mohamed/Desktop/WorkSpace/Cryptos/app/src/main/res/layout/crypto_details_row.xml" value="0.17222222222222222" />
         <entry key="..\:/Users/Mohamed/Desktop/WorkSpace/Cryptos/app/src/main/res/layout/fragment_all_cryptos.xml" value="0.14814814814814814" />
         <entry key="..\:/Users/Mohamed/Desktop/WorkSpace/Cryptos/app/src/main/res/layout/fragment_bit_coin.xml" value="0.25" />
         <entry key="..\:/Users/Mohamed/Desktop/WorkSpace/Cryptos/app/src/main/res/layout/trending_repo_row.xml" value="0.21927083333333333" />

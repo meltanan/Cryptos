@@ -22,9 +22,7 @@ class AllCryptosFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         recyclerView = view.findViewById(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        viewModel.allCryptos.observe(requireActivity()){
-                setUpUi()
-        }
+        setUpUi()
     }
 
     private fun setUpUi() {

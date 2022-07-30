@@ -18,13 +18,16 @@ class AllCryptosAdapter(private val allCryptos: List<AllCryptosItem>): RecyclerV
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.name.text = "Name: ${allCryptos[position].name}"
-        holder.rank.text = "Watchers: ${allCryptos[position].rank}"
-        holder.status.text = "Language: ${allCryptos[position].is_active?: "N/A"}"
-        holder.type.text = "Visibility: ${allCryptos[position].type?: "N/A"}"
+        var status = if (allCryptos[position].is_active == true) "active"
+        else "inactive"
+
+        holder.name.text = "Name: ${allCryptos[position].name?: "N/A"}"
+        holder.rank.text = "Watchers: ${allCryptos[position].rank?: "N/A"}"
+        holder.status.text = "Status: $status"
+        holder.type.text = "Type: ${allCryptos[position].type?: "N/A"}"
     }
 
-    override fun getItemCount(): Int = allCryptos.size
+    override fun getItemCount(): Int = 20
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.findViewById(R.id.nameTextView)

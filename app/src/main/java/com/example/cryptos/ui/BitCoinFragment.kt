@@ -32,11 +32,11 @@ class BitCoinFragment : Fragment() {
         viewModel.bitCoin.observe(requireActivity()) {
             nameTextView.text = it.chartName
             when(viewModel.favoriteCurrency) {
-                "USD" -> rateTextView.text = "${it.bpi.USD.rate} USD"
-                "GBP" -> rateTextView.text = "${it.bpi.GBP.rate} GBP"
-                "EUR" -> rateTextView.text = "${it.bpi.EUR.rate} EUR"
+                "USD" -> rateTextView.text = "${it.bpi?.USD?.rate?.dropLast(2)} USD"
+                "GBP" -> rateTextView.text = "${it.bpi?.GBP?.rate?.dropLast(2)} GBP"
+                "EUR" -> rateTextView.text = "${it.bpi?.EUR?.rate?.dropLast(2)} EUR"
             }
-            timeTextView.text = it.time.updated.removePrefix("updated :")
+            timeTextView.text = it.time?.updated?.removePrefix("updated :")
         }
     }
 }

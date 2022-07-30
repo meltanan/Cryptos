@@ -1,11 +1,9 @@
 package com.example.cryptos.network.Remote
 
-import com.example.cryptos.data.model.AllCryptos
 import com.example.cryptos.data.model.AllCryptosItem
 import com.example.cryptos.data.model.Bitcoin
 import retrofit2.Call
 import retrofit2.http.GET
-import retrofit2.http.Url
 
 interface CryptosAPI {
     @GET("/v1/bpi/currentprice.json")
