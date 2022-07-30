@@ -33,7 +33,7 @@ class BitCoinFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         nameTextView = view.findViewById(R.id.nameTextView)
         rateTextView = view.findViewById(R.id.rankTextView)
-        timeTextView = view.findViewById(R.id.activeTextView)
+        timeTextView = view.findViewById(R.id.statusTextView)
         setUpUi()
     }
 

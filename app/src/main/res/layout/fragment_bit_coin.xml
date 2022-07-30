@@ -7,7 +7,6 @@
     android:background="@color/black"
     tools:context=".ui.HomeActivity">
 
-
     <TextView
         android:id="@+id/nameTextView"
         android:layout_width="0dp"
@@ -31,13 +30,13 @@
         android:textStyle="bold"
         android:textColor="#0BF503"
         android:text="Rate"
-        app:layout_constraintBottom_toTopOf="@+id/activeTextView"
+        app:layout_constraintBottom_toTopOf="@+id/statusTextView"
         app:layout_constraintTop_toBottomOf="@id/nameTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/activeTextView"
+        android:id="@+id/statusTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textAlignment="center"

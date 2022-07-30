@@ -2,7 +2,6 @@ package com.example.cryptos.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import androidx.activity.viewModels
 import androidx.lifecycle.viewModelScope
@@ -23,9 +22,7 @@ class HomeActivity : AppCompatActivity() {
             viewModel.getBitcoint()
             viewModel.getAllCryptos()
         }
-
         viewModel.bitCoin.observe(this) {}
-
         setUpUi()
     }
 

@@ -9,11 +9,13 @@ import com.example.cryptos.network.Repository.CryptosRepository
 class HomeActivityViewModel: ViewModel() {
 
     var bitCoin = MutableLiveData<Bitcoin>()
-    var allCryptos = MutableLiveData<AllCryptosItem>()
+    var allCryptos = MutableLiveData<List<AllCryptosItem>>()
 
     suspend fun getBitcoint() {
         bitCoin.postValue(CryptosRepository.getBitcoint())
     }
-    suspend fun getAllCryptos() = CryptosRepository.getALlCryptos()
+    suspend fun getAllCryptos() {
+        allCryptos.postValue(CryptosRepository.getALlCryptos())
+    }
 
 }

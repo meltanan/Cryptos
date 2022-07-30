@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.MainActivity">
+    tools:context=".ui.HomeActivity">
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/all_cryptos_button"
@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:text="All Cryptos"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/bitcoint_button"
         app:layout_constraintHorizontal_bias="0.05"
@@ -26,7 +25,6 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:text="Bitcoin"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.949"
@@ -37,7 +35,6 @@
         android:id="@+id/fragmentContainerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-
         app:layout_constraintBottom_toTopOf="@id/bitcoint_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
