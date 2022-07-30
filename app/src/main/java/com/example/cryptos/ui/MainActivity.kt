@@ -1,7 +1,8 @@
-package com.example.cryptos
+package com.example.cryptos.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.cryptos.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
