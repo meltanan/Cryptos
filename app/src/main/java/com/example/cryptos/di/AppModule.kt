@@ -1,7 +1,6 @@
 package com.example.cryptos.di
 
 import com.example.cryptos.common.Constants
-import com.example.cryptos.network.API
 import com.example.cryptos.network.Remote.CryptosAPI
 import dagger.Module
 import dagger.Provides
@@ -10,6 +9,7 @@ import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -18,9 +18,15 @@ object AppModule {
 
     @Provides
     @Singleton
+    @Named("bitcoin")
     fun provideCryptosAPI(): CryptosAPI {
         return Retrofit.Builder().baseUrl(Constants.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build().create()
     }
 
-
+    @Provides
+    @Singleton
+    @Named("allCoins")
+    fun provideAllCryptosAPI(): CryptosAPI {
+        return Retrofit.Builder().baseUrl(Constants.ALLBASE_URL).addConverterFactory(GsonConverterFactory.create()).build().create()
+    }
 }

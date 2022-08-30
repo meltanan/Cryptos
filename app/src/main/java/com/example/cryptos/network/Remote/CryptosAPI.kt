@@ -11,9 +11,6 @@ interface CryptosAPI {
     @GET("/v1/bpi/currentprice.json")
     fun getBitcoinData(): Call<Bitcoin>
 
-    @GET("/v1/bpi/currentprice.json")
-    fun getBitcoinData2(): Response
-
     @GET("/v1/coins")
     fun getAllCryptosData(): Call<List<AllCryptosItem>>
 }
