@@ -11,11 +11,12 @@ import androidx.lifecycle.viewModelScope
 import com.example.cryptos.R
 import com.example.cryptos.replaceFragment
 import com.example.cryptos.showOptionsDialog
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-
+@AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
     private val FAVORITE_CURRENCY_KEY = "FAVORITE_CURRENCY_KEY"
     lateinit var welcomeTextView: TextView
