@@ -1,8 +1,9 @@
 package com.example.cryptos.ui
 
-import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.cryptos.data.model.AllCryptosItem
 import com.example.cryptos.data.model.Bitcoin
 import com.example.cryptos.util.Resources
@@ -14,28 +15,35 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeActivityViewModel @Inject constructor(val repository2: com.example.cryptos.domain.CryptosRepository): ViewModel() {
+class HomeActivityViewModel @Inject constructor(private val repository: com.example.cryptos.domain.CryptosRepository): ViewModel() {
 
-    var bitCoin = MutableLiveData<Bitcoin?>()
-    var allCryptos = MutableLiveData<List<AllCryptosItem>>()
+    private val bitcoin: MutableLiveData<Resources<Bitcoin>> = MutableLiveData()
+    val bitCoin: LiveData<Resources<Bitcoin>> = bitcoin
+
+    private val _allCryptos = MutableLiveData<Resources<List<AllCryptosItem>>>()
+    var allCryptos: LiveData<Resources<List<AllCryptosItem>>> = _allCryptos
     private var minutesToUpdateBitCoin = 300000L
     var favoriteCurrency = ""
 
     suspend fun getBitcoin() {
-        val response = repository2.getBitcoin()
-        when (response) {
-            is Resources.Success -> {
-                    bitCoin.postValue(response.data)
-
+        viewModelScope.launch {
+             repository.getBitcoin().collect {
+                 bitcoin.postValue(it)
             }
         }
     }
-    suspend fun getAllCryptos() { allCryptos.postValue(repository2.getAllCryptos()) }
+
+    suspend fun getAllCryptos() {
+        viewModelScope.launch {
+            repository.getAllCryptos().collect {
+                _allCryptos.postValue(it)
+            }
+        }
+    }
 
     fun updateBitCoinAutomatically() {
         CoroutineScope(Dispatchers.IO).launch {
-            val wow = repository2.getBitcoin()
-            Log.d("demo", wow.toString())
+             repository.getBitcoin()
             delay(minutesToUpdateBitCoin)
             getBitcoin()
             updateBitCoinAutomatically()
