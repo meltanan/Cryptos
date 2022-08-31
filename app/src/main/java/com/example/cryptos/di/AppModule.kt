@@ -18,7 +18,6 @@ object AppModule {
 
     @Provides
     @Singleton
-    @Named("bitcoin")
     fun provideCryptosAPI(): CryptosAPI {
         return Retrofit.Builder().baseUrl(Constants.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build().create()
     }
