@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cryptos.data.model.AllCryptosItem
 import com.example.cryptos.data.model.Bitcoin
+import com.example.cryptos.util.DispatcherProvider
 import com.example.cryptos.util.Resources
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -15,7 +16,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeActivityViewModel @Inject constructor(private val repository: com.example.cryptos.domain.CryptosRepository): ViewModel() {
+class HomeActivityViewModel @Inject constructor(
+    private val repository: com.example.cryptos.domain.CryptosRepository,
+    private val dispatcherProvider: DispatcherProvider
+    ): ViewModel() {
 
     private val bitcoin: MutableLiveData<Resources<Bitcoin>> = MutableLiveData()
     val bitCoin: LiveData<Resources<Bitcoin>> = bitcoin
@@ -42,7 +46,7 @@ class HomeActivityViewModel @Inject constructor(private val repository: com.exam
     }
 
     fun updateBitCoinAutomatically() {
-        CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(dispatcherProvider.io).launch {
              repository.getBitcoin()
             delay(minutesToUpdateBitCoin)
             getBitcoin()
