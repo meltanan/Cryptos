@@ -15,7 +15,7 @@ import javax.inject.Named
 import javax.inject.Singleton
 
 @Singleton
-class CryptosRepositoryImpl @Inject constructor(@Named ("bitcoin") private val api: CryptosAPI,@Named("allCoins") private val allApi: CryptosAPI): CryptosRepository {
+class CryptosRepositoryImpl @Inject constructor( private val api: CryptosAPI): CryptosRepository {
 
     override suspend fun getBitcoin(): Flow<Resources<Bitcoin>> = flow {
         emit(Resources.Loading())
@@ -33,7 +33,7 @@ class CryptosRepositoryImpl @Inject constructor(@Named ("bitcoin") private val a
     override suspend fun getAllCryptos(): Flow <Resources<List<AllCryptosItem>>> = flow {
         emit(Resources.Loading())
         val response = try {
-            allApi.getAllCryptosData().execute()
+            api.getAllCryptosData(" https://api.coinpaprika.com/v1/coins").execute()
         } catch (e: Exception) {
             null
         }

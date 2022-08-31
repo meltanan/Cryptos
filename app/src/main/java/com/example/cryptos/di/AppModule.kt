@@ -22,11 +22,4 @@ object AppModule {
     fun provideCryptosAPI(): CryptosAPI {
         return Retrofit.Builder().baseUrl(Constants.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build().create()
     }
-
-    @Provides
-    @Singleton
-    @Named("allCoins")
-    fun provideAllCryptosAPI(): CryptosAPI {
-        return Retrofit.Builder().baseUrl(Constants.ALLBASE_URL).addConverterFactory(GsonConverterFactory.create()).build().create()
-    }
 }
